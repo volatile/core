@@ -12,13 +12,13 @@ No handlers are bundled in the Core package.
 
 ## Getting started
 
-### 1. Install Volatile Core
+### 1. Install
 
 ```Shell
 $ go get -u github.com/volatile/core
 ```
 
-### 2. Write your application
+### 2. Write
 
 In `app.go`:
 
@@ -40,12 +40,10 @@ func main() {
 }
 ```
 
-### 3. Run the server
-
-You can set an optional port (default is `8080`):
+### 3. Run
 
 ```Shell
 $ go run app.go [-p port]
 ```
 
-Your application is reachable at `http://localhost:8080/`.
+The application is reachable at `http://localhost:8080/`.
