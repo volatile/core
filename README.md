@@ -10,11 +10,17 @@ So you can perform actions downstream, then filter and manipulate the response u
 
 No handlers are bundled in the Core package.
 
-# Examples
+## Getting started
 
-## "Hello, World!"
+### 1. Install Volatile Core
 
-Because all goes on from there…
+```Shell
+$ go get -u github.com/volatile/core
+```
+
+### 2. Write your app
+
+In `app.go`:
 
 ```Go
 package main
@@ -34,29 +40,15 @@ func main() {
 }
 ```
 
-And we can run it on a custom port with `go run main.go -port 4040` (default is `8080`).
+### 3. Run the server
 
-## Real case
+#### On the default port (8080)
+```Shell
+$ go run app.go
+```
 
-Volatile is an everyday use and production ready micro framework.  
-So let's finish with a real situation where you would need **logging**, **compression**, **CORS**, **sessions**.
+#### On a custom port
 
-```Go
-package main
-
-import (
-	"net/http"
-
-	"github.com/volatile/compress"
-	"github.com/volatile/core"
-	"github.com/volatile/log"
-	"github.com/volatile/router"
-	"github.com/volatile/sessions"
-)
-
-var maintRouter = router.New()
-
-func main() {
-	// TODO
-}
+```Shell
+$ go run app.go -port 8888
 ```
