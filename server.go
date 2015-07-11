@@ -1,28 +1,12 @@
 package core
 
-import "net/http"
+import (
+	"flag"
+	"net/http"
+	"strconv"
+)
 
-type stack []func(*Context)
-
-var handlers stack
-
-// Use adds a handler to the handlers stack.
-func Use(m func(*Context)) {
-	handlers = append(handlers, m)
-}
-
-func (m stack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	// Init a new context for the request.
-	c := &Context{
-		Request: r,
-	}
-
-	// Throw the fresh context in the handlers stack.
-	handlers[0](c)
-
-	// Send the final response.
-	w.Write(c.Response)
-}
+var port = flag.Int("port", 8080, "port to listen on")
 
 // Run starts the server for listening and serving.
 func Run() {
@@ -30,5 +14,7 @@ func Run() {
 		panic("core: the handlers stack cannot be empty")
 	}
 
-	http.ListenAndServe(":8080", handlers)
+	flag.Parse()
+
+	panic(http.ListenAndServe(":"+strconv.Itoa(*port), handlers))
 }
