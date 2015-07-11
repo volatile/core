@@ -34,6 +34,8 @@ func main() {
 }
 ```
 
+And we can run it on a custom port with `go run main.go -port 4040` (default is `8080`).
+
 ## Real case
 
 Volatile is an everyday use and production ready micro framework.  
