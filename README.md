@@ -18,7 +18,7 @@ No handlers are bundled in the Core package.
 $ go get -u github.com/volatile/core
 ```
 
-### 2. Write your app
+### 2. Write your application
 
 In `app.go`:
 
@@ -42,13 +42,10 @@ func main() {
 
 ### 3. Run the server
 
-#### On the default port (8080)
-```Shell
-$ go run app.go
-```
-
-#### On a custom port
+You can set an optional port (default is `8080`):
 
 ```Shell
-$ go run app.go -port 8888
+$ go run app.go [-p port]
 ```
+
+Your application is reachable at `http://localhost:8080/`.
