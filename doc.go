@@ -8,8 +8,6 @@
 //
 // Example
 //
-// In "app.go":
-//
 //  package main
 //
 //  import (
