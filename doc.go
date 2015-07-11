@@ -4,13 +4,9 @@
 // A handlers stack (middlewares) is used to pass data in line, from the first to the last handler.
 // So you can perform actions downstream, then filter and manipulate the response upstream.
 //
-// No handlers are bundled in the Core package.
+// No handlers are bundled in the core package.
 //
-// Install
-//
-//  $ go get -u github.com/volatile/core
-//
-// Write
+// Example
 //
 // In "app.go":
 //
@@ -30,7 +26,7 @@
 //  	core.Run()
 //  }
 //
-// Run
+// Run the server
 //
 //  $ go run app.go [-p port]
 //

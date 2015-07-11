@@ -10,7 +10,7 @@ It allows you to connect all and only the components you need in a flexible and 
 A handlers stack (middlewares) is used to pass data in line, from the first to the last handler.  
 So you can perform actions downstream, then filter and manipulate the response upstream.
 
-No handlers are bundled in the Core package.
+No handlers are bundled in the `core` package.
 
 ## Getting started
 
