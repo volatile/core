@@ -1,4 +1,4 @@
-<p align="center"><img src="https://s3-eu-west-1.amazonaws.com/whitedevops/volatile/volatile-core.png" alt="Volatile Core" title="Volatile Core" style="margin:100px auto"></p>
+<p align="center"><br><br><br><img src="https://s3-eu-west-1.amazonaws.com/whitedevops/volatile/volatile-core.png" alt="Volatile Core" title="Volatile Core"><br><br><br></p>
 
 THIS IS A WORK IN PROGRESS SUBJECT TO CHANGES
 
