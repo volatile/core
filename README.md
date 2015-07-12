@@ -35,7 +35,7 @@ import (
 
 func main() {
 	core.Use(func(c *core.Context) {
-		c.Response = []byte("Hello, World!")
+		c.Response.Body = []byte("Hello, World!")
 	})
 
 	core.Run()
