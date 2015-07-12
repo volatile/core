@@ -1,12 +1,15 @@
 package core
 
-import "net/http"
+import (
+	"io"
+	"net/http"
+)
 
 // Context contains the data used on the wire of each request.
 type Context struct {
-	index    int
-	Request  *http.Request
-	Response Response
+	ResponseWriter http.ResponseWriter
+	Request        *http.Request
+	index          int
 }
 
 // Next calls the next handler in the stack.
@@ -15,10 +18,23 @@ func (c *Context) Next() {
 	handlers[c.index](c)
 }
 
-// Response contains the data that will be written in the final response.
-// It is used by handlers to avoid writing the main http.ResponseWriter multiple times.
-type Response struct {
-	Status int
-	Header http.Header
-	Body   []byte
+// NextWriter calls the next handler in the stack with a new ResponseWriter.
+// It can be used by handlers (middlewares) to transfer a new writer.
+// The best example is in the "compress" package.
+func (c *Context) NextWriter(w http.ResponseWriter) {
+	c.ResponseWriter = w
+	c.index++
+	handlers[c.index](c)
+}
+
+// ResponseWriterBinder can be used by handlers to pass a new ResponseWriter to the next handlers and write back to the original ResponseWriter.
+type ResponseWriterBinder struct {
+	io.Writer
+	http.ResponseWriter
+	BeforeWrite func([]byte)
+}
+
+func (w ResponseWriterBinder) Write(b []byte) (int, error) {
+	w.BeforeWrite(b)
+	return w.Writer.Write(b)
 }

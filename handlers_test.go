@@ -8,9 +8,9 @@ import (
 
 func TestServeHTTP(t *testing.T) {
 	Use(func(c *Context) {
-		c.Response.Status = http.StatusForbidden
-		c.Response.Header.Set("foo", "bar")
-		c.Response.Body = []byte("foobar")
+		c.ResponseWriter.Header().Set("foo", "bar")
+		c.ResponseWriter.WriteHeader(http.StatusForbidden)
+		c.ResponseWriter.Write([]byte("foobar"))
 	})
 
 	r, _ := http.NewRequest("GET", "", nil)

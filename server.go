@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-var port = flag.Int("port", 8080, "port to listen on")
+var port = flag.Int("port", 8080, "the port to listen on")
 
 // Run starts the server for listening and serving.
 func Run() {
