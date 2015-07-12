@@ -6,7 +6,7 @@ import "net/http"
 type Context struct {
 	index    int
 	Request  *http.Request
-	Response Response // Used by handlers to avoid writing the http.ResponseWriter multiple times.
+	Response Response
 }
 
 // Next calls the next handler in the stack.
@@ -15,7 +15,8 @@ func (c *Context) Next() {
 	handlers[c.index](c)
 }
 
-// Response represents the response from an HTTP request.
+// Response contains the data that will be written in the final response.
+// It is used by handlers to avoid writing the main http.ResponseWriter multiple times.
 type Response struct {
 	Status int
 	Header http.Header
