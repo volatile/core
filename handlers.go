@@ -2,16 +2,16 @@ package core
 
 import "net/http"
 
-var handlers stack
+var handlers handlersStack
 
-type stack []func(*Context)
+type handlersStack []func(*Context)
 
 // Use adds a handler to the handlers stack.
-func Use(m func(*Context)) {
-	handlers = append(handlers, m)
+func Use(h func(*Context)) {
+	handlers = append(handlers, h)
 }
 
-func (m stack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (h handlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Init a new context for the request.
 	c := &Context{
 		Request: r,
