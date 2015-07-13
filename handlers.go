@@ -16,8 +16,14 @@ func (h handlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	c := &Context{
 		ResponseWriter: w,
 		Request:        r,
+		index:          -1, // Begin with -1 because the NextWriter will increment index before calling the first handler.
 	}
 
-	// Throw the fresh context in the handlers stack.
-	handlers[0](c)
+	// Enter the handlers stack.
+	// We use a binder to set the c.written flag on first write and break handlers chain.
+	c.NextWriter(ResponseWriterBinder{
+		Writer:         c.ResponseWriter,
+		ResponseWriter: c.ResponseWriter,
+		BeforeWrite:    func([]byte) { c.written = true },
+	})
 }
