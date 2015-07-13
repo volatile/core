@@ -13,15 +13,17 @@ var (
 	port       int
 )
 
+func init() {
+	flag.BoolVar(&Production, "production", false, "run the server in production environment")
+	flag.IntVar(&port, "port", 8080, "the port to listen on")
+	flag.Parse()
+}
+
 // Run starts the server for listening and serving.
 func Run() {
 	if handlers == nil {
 		panic("core: the handlers stack cannot be empty")
 	}
-
-	flag.BoolVar(&Production, "production", false, "run the server in production environment")
-	flag.IntVar(&port, "port", 8080, "the port to listen on")
-	flag.Parse()
 
 	panic(http.ListenAndServe(":"+strconv.Itoa(port), handlers))
 }
