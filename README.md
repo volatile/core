@@ -43,7 +43,7 @@ func main() {
 ### 3. Run
 
 ```Shell
-$ go run app.go [-p port]
+$ go run app.go [-port port] [-production]
 ```
 
 The application is reachable at `http://localhost:8080/`.

@@ -31,7 +31,7 @@ Run
 
 You can run the server with an optional port:
 
-	$ go run app.go [-p port]
+	$ go run app.go [-port port] [-production]
 
 The application is reachable at "http://localhost:8080/".
 */

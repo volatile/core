@@ -6,7 +6,12 @@ import (
 	"strconv"
 )
 
-var port = flag.Int("port", 8080, "the port to listen on")
+var (
+	// Production defines if the server must be using production settings.
+	// It can be used by handlers to provide different logic for this envionment.
+	Production bool
+	port       int
+)
 
 // Run starts the server for listening and serving.
 func Run() {
@@ -14,7 +19,9 @@ func Run() {
 		panic("core: the handlers stack cannot be empty")
 	}
 
+	flag.BoolVar(&Production, "production", false, "run the server in production envionment")
+	flag.IntVar(&port, "port", 8080, "the port to listen on")
 	flag.Parse()
 
-	panic(http.ListenAndServe(":"+strconv.Itoa(*port), handlers))
+	panic(http.ListenAndServe(":"+strconv.Itoa(port), handlers))
 }
