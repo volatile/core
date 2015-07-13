@@ -24,14 +24,14 @@ In `app.go`:
 package main
 
 import (
-	"net/http"
+	"fmt"
 
 	"github.com/volatile/core"
 )
 
 func main() {
 	core.Use(func(c *core.Context) {
-		c.Response.Body = []byte("Hello, World!")
+		fmt.Fprint(c.ResponseWriter, "Hello, World!")
 	})
 
 	core.Run()
