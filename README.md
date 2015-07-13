@@ -3,7 +3,7 @@
 Volatile Core is the perfect foundation for any web application.  
 It allows you to connect all and only the components you need in a flexible and efficient way.
 
-A handlers (or middlewares) stack is used to pass data in line, from the first to the last handler.  
+A handlers (or *middlewares*) stack is used to pass data in line, from the first to the last handler.  
 So you can perform actions downstream, then filter and manipulate the response upstream.
 
 No handlers are bundled in this package.
