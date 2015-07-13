@@ -1,12 +1,12 @@
-<p align="center"><img src="https://cloud.githubusercontent.com/assets/9503891/8640462/d662825e-28f9-11e5-9013-f20a37ab7747.png" alt="Volatile Core" title="Volatile Core"><br><br></p>
+<p align="center"><img src="https://cloud.githubusercontent.com/assets/9503891/8646803/1fd8e456-2953-11e5-9768-8383290d486d.png" alt="Volatile Core" title="Volatile Core"><br><br></p>
 
 Volatile Core is the perfect foundation for any web application.  
 It allows you to connect all and only the components you need in a flexible and efficient way.
 
-A handlers stack (middlewares) is used to pass data in line, from the first to the last handler.  
+A handlers (or middlewares) stack is used to pass data in line, from the first to the last handler.  
 So you can perform actions downstream, then filter and manipulate the response upstream.
 
-No handlers are bundled in the `core` package.
+No handlers are bundled in this package.
 
 ## Getting started
 
@@ -47,3 +47,8 @@ $ go run app.go [-p port]
 ```
 
 The application is reachable at `http://localhost:8080/`.
+
+## Official handlers
+
+- [Compress](https://github.com/volatile/compress) — Responses compressor
+- *Others are coming…*
