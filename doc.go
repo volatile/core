@@ -9,19 +9,29 @@ No handlers are bundled in this package.
 
 Example
 
-Here is the classic "Hello, World!" example:
+Here is the classic "Hello, World!" example with request logging:
 
 	package main
 
 	import (
-		"net/http"
+		"fmt"
+		"log"
+		"time"
 
 		"github.com/volatile/core"
 	)
 
 	func main() {
+		// Log
 		core.Use(func(c *core.Context) {
-			c.Response.Body = []byte("Hello, World!")
+			start := time.Now()
+			c.Next()
+			log.Printf(" %s  %s  %s", c.Request.Method, c.Request.URL, time.Since(start))
+		})
+
+		// Response
+		core.Use(func(c *core.Context) {
+			fmt.Fprint(c.ResponseWriter, "Hello, World!")
 		})
 
 		core.Run()

@@ -25,11 +25,21 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"time"
 
 	"github.com/volatile/core"
 )
 
 func main() {
+	// Log
+	core.Use(func(c *core.Context) {
+		start := time.Now()
+		c.Next()
+		log.Printf(" %s  %s  %s", c.Request.Method, c.Request.URL, time.Since(start))
+	})
+
+	// Response
 	core.Use(func(c *core.Context) {
 		fmt.Fprint(c.ResponseWriter, "Hello, World!")
 	})
@@ -50,5 +60,8 @@ The application is reachable at `http://localhost:8080/`.
 
 ## Official handlers
 
+In order of usability in you app:
+
+- [Log](https://github.com/volatile/log) — Requests logging
 - [Compress](https://github.com/volatile/compress) — Responses compressor
 - *Others are coming…*

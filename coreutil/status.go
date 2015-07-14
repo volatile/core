@@ -6,7 +6,7 @@ import (
 )
 
 // ResponseStatus returns the HTTP response status.
-// Be careful that the status is only set by the server after the ResponseWriter.WriteHeader() has been called.
+// Remember that the status is only set by the server after ResponseWriter.WriteHeader() has been called.
 func ResponseStatus(w http.ResponseWriter) int {
 	return int(httpResponseStruct(reflect.ValueOf(w)).FieldByName("status").Int())
 }
