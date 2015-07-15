@@ -23,8 +23,8 @@ func httpResponseStruct(v reflect.Value) reflect.Value {
 	}
 }
 
-// SetContentType detects and sets the correct content type.
-func SetContentType(w http.ResponseWriter, b []byte) {
+// SetDetectedContentType detects and sets the correct content type.
+func SetDetectedContentType(w http.ResponseWriter, b []byte) {
 	if len(w.Header().Get("Content-Type")) == 0 {
 		w.Header().Set("Content-Type", http.DetectContentType(b))
 	}
