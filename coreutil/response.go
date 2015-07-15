@@ -22,3 +22,10 @@ func httpResponseStruct(v reflect.Value) reflect.Value {
 		panic("core: call of httpResponseStruct on unknown interface type")
 	}
 }
+
+// SetContentType detects and sets the correct content type.
+func SetContentType(w http.ResponseWriter, b []byte) {
+	if len(w.Header().Get("Content-Type")) == 0 {
+		w.Header().Set("Content-Type", http.DetectContentType(b))
+	}
+}
