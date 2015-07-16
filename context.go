@@ -6,9 +6,11 @@ import (
 )
 
 // Context contains the data used on the wire of each request.
+// You can pass data through handlers thanks to the Data field.
 type Context struct {
 	ResponseWriter http.ResponseWriter
 	Request        *http.Request
+	Data           map[string]interface{}
 	index          int
 	written        bool
 }
