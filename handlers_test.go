@@ -28,6 +28,6 @@ func TestServeHTTP(t *testing.T) {
 
 	body := w.Body.String()
 	if body != "foobar" {
-		t.Errorf("header: want %q, got %q", "foobar", body)
+		t.Errorf("body: want %q, got %q", "foobar", body)
 	}
 }

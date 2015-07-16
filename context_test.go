@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestResponseWriteBinder(t *testing.T) {
+func TestResponseWriterBinder(t *testing.T) {
 	in := "Foobar"
 	out := new(bytes.Buffer)
 
@@ -19,6 +19,6 @@ func TestResponseWriteBinder(t *testing.T) {
 	binder.Write([]byte(in))
 
 	if out.String() != in {
-		t.Errorf("header: want %q, got %q", in, out)
+		t.Errorf("response writer binder: want %q, got %q", in, out)
 	}
 }
