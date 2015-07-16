@@ -40,6 +40,8 @@ type ResponseWriterBinder struct {
 }
 
 func (w ResponseWriterBinder) Write(b []byte) (int, error) {
-	w.BeforeWrite(b)
+	if w.BeforeWrite != nil {
+		w.BeforeWrite(b)
+	}
 	return w.Writer.Write(b)
 }
