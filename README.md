@@ -65,3 +65,10 @@ In order of usability in you app:
 - [Log](https://github.com/volatile/log) — Requests logging
 - [Compress](https://github.com/volatile/compress) — Responses compressor
 - *Others are coming…*
+
+## Official helpers
+
+Is helper is just syntactic sugar to ease repetitive code and improve readability of you app.
+
+- [Route](https://github.com/volatile/route) — A flexible routing helper
+- *Others are coming…*
