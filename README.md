@@ -1,4 +1,4 @@
-<p align="center"><img src="https://cloud.githubusercontent.com/assets/9503891/8646803/1fd8e456-2953-11e5-9768-8383290d486d.png" alt="Volatile Core" title="Volatile Core"><br><br></p>
+<p align="center"><img src="http://volatile.whitedevops.com/images/repositories/core/logo.png" alt="Volatile Core" title="Volatile Core"><br><br></p>
 
 Volatile Core is the perfect foundation for any web application.  
 It allows you to connect all and only the components you need in a flexible and efficient way.
