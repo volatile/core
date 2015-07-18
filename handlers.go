@@ -21,9 +21,11 @@ func (h handlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	// Enter the handlers stack.
 	// We use a binder to set the c.written flag on first write and break handlers chain.
-	c.NextWriter(ResponseWriterBinder{
+	c.ResponseWriter = ResponseWriterBinder{
 		Writer:         c.ResponseWriter,
 		ResponseWriter: c.ResponseWriter,
 		BeforeWrite:    func([]byte) { c.written = true },
-	})
+	}
+
+	c.Next()
 }
