@@ -7,7 +7,7 @@ So you can perform actions downstream, then filter and manipulate the response u
 
 No handlers are bundled in this package.
 
-Example
+Usage
 
 Here is the classic "Hello, World!" example with request logging:
 
