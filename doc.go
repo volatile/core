@@ -9,7 +9,7 @@ No handlers are bundled in this package.
 
 Usage
 
-Here is the classic "Hello, World!" example with request logging:
+A "Hello, World!" example with request logging:
 
 	package main
 
