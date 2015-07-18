@@ -71,4 +71,5 @@ In order of usability in you app:
 Is helper is just syntactic sugar to ease repetitive code and improve readability of you app.
 
 - [Route](https://github.com/volatile/route) — A flexible routing helper
+- [Response](https://github.com/volatile/response) — A readable response helper
 - *Others are coming…*
