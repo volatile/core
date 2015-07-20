@@ -143,7 +143,7 @@ core.Use(func(c *core.Context) {
 		},
 	}
 
-	// 3. We set the input
+	// 3. We set the input.
 	c.ResponseWriter = rwb
 })
 
