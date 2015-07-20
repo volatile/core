@@ -130,7 +130,7 @@ If you need to do something (like setting headers, as you cannot do that after) 
 
 ```Go
 core.Use(func(c *core.Context) {
-	1. We set the output.
+	// 1. We set the output.
 	gzw := gzip.NewWriter(c.ResponseWriter)
 	defer gzw.Close()
 
