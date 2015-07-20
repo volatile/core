@@ -53,7 +53,7 @@ func main() {
 ### 3. Run
 
 ```Shell
-$ go run app.go [-port port] [-production]
+$ go run app.go
 ```
 
 The application is reachable at `http://localhost:8080/`.
@@ -74,3 +74,77 @@ Helpers are just syntactic sugars to ease repetitive code and improve readabilit
 - [Route](https://github.com/volatile/route) — Flexible routing helper
 - [Response](https://github.com/volatile/response) — Readable response helper
 - *Others are coming…*
+
+## Usage
+
+### Context
+
+All handlers are functions that receive a context: `func(*core.Context)`.  
+A Volatile context encapsulates the classic `*http.Request` and `http.ResponseWriter`. See the standard [`net/http`](http://golang.org/pkg/net/http/) package for these.
+
+#### Next
+
+To not break the handlers chain and go to the next handler, just use the context's `Next()` method.
+
+```Go
+core.Use(func(c *core.Context) {
+	c.Next()
+})
+```
+
+#### Pass data
+
+To transmit data from a handler to another, the `*coreContext` has a `Data` field, which is a `map[string]interface{}`.
+
+```Go
+core.Use(func(c *core.Context) {
+	c.Data["id"] = 123
+})
+```
+
+#### Response writer binding
+
+If some of your handlers need to transform the request before sending it, you can't just use the same `ResponseWriter` for each handler.  
+To do so, the Core provides a `ResponseWriterBinder` structure that has the same signature as an `http.ResponseWriter`, but that redirects the response upstream, to an `io.Writer` that will write the original `http.ResponseWriter`.
+
+In other words, the `ResponseWriterBinder` has an output (the `ResponseWriter` used before setting the binder) and an input (an overwritten context `ResponseWriter` used by the next handlers).  
+You can see a real example in the [Compress](https://github.com/volatile/compress/blob/master/handler.go) package.
+
+If you need to do something (like setting headers, as you cannot do that after) just before writing the response body, set a function on the `BeforeWrite` field.
+
+```Go
+core.Use(func(c *core.Context) {
+	1. We set the output.
+	gzw := gzip.NewWriter(c.ResponseWriter)
+	defer gzw.Close()
+
+	// 2. We set the binder.
+	rwb = ResponseWriterBinder{
+		Writer:         gzw, // The binder output.
+		ResponseWriter: c.ResponseWriter, // To keep the same signature (but the `Write` method of the `ResponseWriter` has changed internally).
+		BeforeWrite:    func(b []byte) {
+			// Do something with b before writing the response body.
+		},
+	}
+
+	// 3. We set the input
+	c.ResponseWriter = rwb
+})
+```
+
+#### Things to know
+
+- When a handler writes the body of a context response, it brakes the handlers chain and a `c.Next()` call is useless.
+- Remember that response headers must be set before the body is written. After that, trying to set a header has no effect.
+
+### Custom port
+
+To let your server listen on a custom port, use the `-port [port]` parameter on start.
+
+### Environments
+
+Some handlers can have different behaviors depending on the environment the server is running.  
+By default, the Core suppose the server in launched in a *development* environment.  
+When running your application in a *production* environment, use the `-production` parameter on start.
+
+In your code, you have access to the `core.Production` flag to distinguish the environment.
