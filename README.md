@@ -63,13 +63,13 @@ The application is reachable at `http://localhost:8080/`.
 In order of usability in you app:
 
 - [Log](https://github.com/volatile/log) — Requests logging
+- [Compress](https://github.com/volatile/compress) — Responses compressing
 - [CORS](https://github.com/volatile/cors) — Cross-Origin Resource Sharing support
-- [Compress](https://github.com/volatile/compress) — Responses compressor
 - *Others are coming…*
 
 ## Official helpers
 
-Is helper is just syntactic sugar to ease repetitive code and improve readability of you app.
+Helper are just syntactic sugars to ease repetitive code and improve readability of you app.
 
 - [Route](https://github.com/volatile/route) — Flexible routing helper
 - [Response](https://github.com/volatile/response) — Readable response helper
