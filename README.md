@@ -69,7 +69,7 @@ In order of usability in you app:
 
 ## Official helpers
 
-Helper are just syntactic sugars to ease repetitive code and improve readability of you app.
+Helpers are just syntactic sugars to ease repetitive code and improve readability of you app.
 
 - [Route](https://github.com/volatile/route) — Flexible routing helper
 - [Response](https://github.com/volatile/response) — Readable response helper
