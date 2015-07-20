@@ -8,6 +8,22 @@ So you can perform actions downstream, then filter and manipulate the response u
 
 No handlers are bundled in this package.
 
+* [Getting Started](#getting-started)
+	* [1. Install](#1-install)
+	* [2. Write](#2-write)
+	* [3. Run](#3-run)
+* [Official handlers](#official-handlers)
+* [Official helpers](#official-helpers)
+* [Usage](#usage)
+	* [Context](#context)
+		* [Next](#next)
+		* [Pass data](#pass-data)
+		* [Response writer binding](#response-writer-binding)
+		* [Things to know](#things-to-know)
+	* [Custom port](#custom-port)
+	* [Environment](#environment)
+
+
 ## Getting started
 
 ### 1. Install
@@ -129,6 +145,10 @@ core.Use(func(c *core.Context) {
 
 	// 3. We set the input
 	c.ResponseWriter = rwb
+})
+
+core.Use(func(c *core.Context) {
+	c.ResponseWriter.Write([]byte("Hello, World!"))
 })
 ```
 
