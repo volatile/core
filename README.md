@@ -96,11 +96,11 @@ Helpers are just syntactic sugars to ease repetitive code and improve readabilit
 ### Context
 
 All handlers are functions that receive a context: `func(*core.Context)`.  
-A Volatile context encapsulates the classic `*http.Request` and `http.ResponseWriter`. See the standard [`net/http`](http://golang.org/pkg/net/http/) package for these.
+A Volatile context encapsulates the well known [`*http.Request`](http://golang.org/pkg/net/http/#Request) and [`http.ResponseWriter`](http://golang.org/pkg/net/http/#ResponseWriter), from the standard [`net/http`](http://golang.org/pkg/net/http/) package.
 
 #### Next
 
-To not break the handlers chain and go to the next handler, just use the context's `Next()` method.
+Simply use the context's `Next()` method to go to the next handler.
 
 ```Go
 core.Use(func(c *core.Context) {
@@ -113,58 +113,65 @@ core.Use(func(c *core.Context) {
 To transmit data from a handler to another, the `*coreContext` has a `Data` field, which is a `map[string]interface{}`.
 
 ```Go
+// Set data
 core.Use(func(c *core.Context) {
 	c.Data["id"] = 123
+})
+
+// Read data
+core.Use(func(c *core.Context) {
+	println(c.Data["id"].(int))
 })
 ```
 
 #### Response writer binding
 
-If some of your handlers need to transform the request before sending it, you can't just use the same `ResponseWriter` for each handler.  
+If some of your handlers need to transform the request before sending it, they can't just use the same `ResponseWriter` all the stack long.  
 To do so, the Core provides a `ResponseWriterBinder` structure that has the same signature as an `http.ResponseWriter`, but that redirects the response upstream, to an `io.Writer` that will write the original `http.ResponseWriter`.
 
-In other words, the `ResponseWriterBinder` has an output (the `ResponseWriter` used before setting the binder) and an input (an overwritten context `ResponseWriter` used by the next handlers).  
-You can see a real example in the [Compress](https://github.com/volatile/compress/blob/master/handler.go) package.
+In other words, the `ResponseWriterBinder` has an output (the `ResponseWriter` used before setting the binder) and an input (an overwritten `ResponseWriter` used by the next handlers).  
+The [Compress](https://github.com/volatile/compress/blob/master/handler.go) package is a good example.
 
-If you need to do something (like setting headers, as you cannot do that after) just before writing the response body, set a function on the `BeforeWrite` field.
+If you need to do something just before writing the response body (like setting headers, as you can't do that after), use the `BeforeWrite` field.
 
 ```Go
 core.Use(func(c *core.Context) {
-	// 1. We set the output.
+	// 1. Set the output
 	gzw := gzip.NewWriter(c.ResponseWriter)
 	defer gzw.Close()
 
-	// 2. We set the binder.
+	// 2. Set the binder
 	rwb = ResponseWriterBinder{
 		Writer:         gzw, // The binder output.
-		ResponseWriter: c.ResponseWriter, // To keep the same signature (but the `Write` method of the `ResponseWriter` has changed internally).
+		ResponseWriter: c.ResponseWriter, // Keep the same Header() and WriteHeader() methods. Only the Write method change internally.
 		BeforeWrite:    func(b []byte) {
 			// Do something with b before writing the response body.
 		},
 	}
 
-	// 3. We set the input.
+	// 3. Set the input
 	c.ResponseWriter = rwb
 })
 
 core.Use(func(c *core.Context) {
+	// The overwritten context's ResponseWriter is used in a transparent way.
 	c.ResponseWriter.Write([]byte("Hello, World!"))
 })
 ```
 
 #### Things to know
 
-- When a handler writes the body of a context response, it brakes the handlers chain and a `c.Next()` call is useless.
+- When a handler writes the body of a response, it brakes the handlers chain so a `c.Next()` call has no effect.
 - Remember that response headers must be set before the body is written. After that, trying to set a header has no effect.
 
 ### Custom port
 
-To let your server listen on a custom port, use the `-port [port]` parameter on start.
+To let the server listen on a custom port, use the `-port [port]` parameter on launch.
 
 ### Environments
 
 Some handlers can have different behaviors depending on the environment the server is running.  
-By default, the Core suppose the server in launched in a *development* environment.  
-When running your application in a *production* environment, use the `-production` parameter on start.
+By default, the Core suppose the server is launched in a *development* environment.  
+When running your application in a *production* environment, use the `-production` parameter on launch.
 
 In your code, you have access to the `core.Production` flag to distinguish the environment.
