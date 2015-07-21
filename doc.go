@@ -43,18 +43,23 @@ Official handlers
 
 In order of usability in you app:
 
-- Log — Requests logging — https://github.com/volatile/log
-- Compress — Responses compressing — https://github.com/volatile/compress
-- CORS — Cross-Origin Resource Sharing support — https://github.com/volatile/cors
-- Others are coming…
+Log — Requests logging — https://github.com/volatile/log
+
+Compress — Responses compressing — https://github.com/volatile/compress
+
+CORS — Cross-Origin Resource Sharing support — https://github.com/volatile/cors
+
+Others are coming…
 
 Official helpers
 
 Helpers are just syntactic sugars to ease repetitive code and improve readability of you app.
 
-- Route — Flexible routing helper — https://github.com/volatile/route
-- Response — Readable response helper — https://github.com/volatile/response
-- Others are coming…
+Route — Flexible routing helper — https://github.com/volatile/route
+
+Response — Readable response helper — https://github.com/volatile/response
+
+Others are coming…
 
 Context
 
@@ -118,8 +123,9 @@ If you need to do something just before writing the response body (like setting 
 
 Things to know
 
-- When a handler writes the body of a response, it brakes the handlers chain so a c.Next() call has no effect.
-- Remember that response headers must be set before the body is written. After that, trying to set a header has no effect.
+When a handler writes the body of a response, it brakes the handlers chain so a c.Next() call has no effect.
+
+Remember that response headers must be set before the body is written. After that, trying to set a header has no effect.
 
 Custom port
 
