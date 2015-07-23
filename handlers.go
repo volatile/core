@@ -27,7 +27,7 @@ func (h handlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		BeforeWrite:    func([]byte) { c.written = true },
 	}
 
-	// Sau to the client to "keep-alive" by default.
+	// Say to the client to "keep-alive" by default.
 	c.ResponseWriter.Header().Set("Connection", "keep-alive")
 
 	c.Next()
