@@ -1,5 +1,5 @@
 /*
-Package core is the perfect foundation for any web application.
+Package core is the perfect foundation for any web app.
 It allows you to connect all and only the components you need in a flexible and efficient way.
 
 A handlers (or "middlewares") stack is used to pass data in line, from the first to the last handler.
@@ -36,6 +36,12 @@ Usage
 
 		core.Run()
 	}
+
+Your app is reachable at http://localhost:8080/.
+If you want to use a custom port, set the `-port` parameter when running your app.
+
+Also, use the `-production` parameter when serving in a production environment.
+Some third-party handlers may have different behaviors following the environment.
 
 Official handlers
 

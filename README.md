@@ -1,6 +1,6 @@
 <p align="center"><img src="http://volatile.whitedevops.com/images/repositories/core/logo.png" alt="Volatile Core" title="Volatile Core"><br><br></p>
 
-Volatile Core is the perfect foundation for any web application.  
+Volatile Core is the perfect foundation for any web app.  
 It allows you to connect all and only the components you need in a flexible and efficient way.
 
 A handlers (or *middlewares*) stack is used to pass data in line, from the first to the last handler.  
@@ -47,6 +47,12 @@ func main() {
 ```
 
 [![GoDoc](https://godoc.org/github.com/volatile/core?status.svg)](https://godoc.org/github.com/volatile/core)
+
+Your app is reachable at http://localhost:8080/.  
+If you want to use a custom port, set the `-port` parameter when running your app.
+
+Also, use the `-production` parameter when serving in a production environment.  
+Some third-party handlers may have different behaviors following the environment.
 
 ## Official handlers
 
