@@ -33,7 +33,7 @@ func Run() {
 
 	// Add a last handler to prevent "index out of range" errors if the previous last handler in stack calls Next().
 	Use(func(c *Context) {
-		http.Error(c.ResponseWriter, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		http.NotFound(c.ResponseWriter, c.Request)
 	})
 
 	for _, f := range beforeRun {
