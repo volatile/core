@@ -28,6 +28,7 @@ func (h handlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Use default headers.
+	c.ResponseWriter.Header().Set("Cache-Control", "no-cache")
 	c.ResponseWriter.Header().Set("Connection", "keep-alive")
 	c.ResponseWriter.Header().Set("Vary", "Accept-Encoding")
 
