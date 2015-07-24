@@ -27,8 +27,9 @@ func (h handlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		BeforeWrite:    func([]byte) { c.written = true },
 	}
 
-	// Say to the client to "keep-alive" by default.
+	// Use default headers.
 	c.ResponseWriter.Header().Set("Connection", "keep-alive")
+	c.ResponseWriter.Header().Set("Vary", "Accept-Encoding")
 
 	c.Next()
 }
