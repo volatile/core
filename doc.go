@@ -38,9 +38,9 @@ Usage
 	}
 
 Your app is reachable at http://localhost:8080/.
-If you want to use a custom port, set the `-port` parameter when running your app.
+If you want to use a custom port, set the "-port" parameter when running your app.
 
-Also, use the `-production` parameter when serving in a production environment.
+Also, use the "-production" parameter when serving in a production environment.
 Some third-party handlers may have different behaviors following the environment.
 
 Official handlers
