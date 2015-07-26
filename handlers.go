@@ -16,10 +16,9 @@ func (h handlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	c := &Context{
 		ResponseWriter: w,
 		Request:        r,
-		index:          -1, // Begin with -1 because the NextWriter will increment index before calling the first handler.
+		index:          -1, // Begin with -1 because "c.Next()" will increment index before calling the first handler.
 	}
 
-	// Enter the handlers stack.
 	// We use a binder to set the c.written flag on first write and break handlers chain.
 	c.ResponseWriter = ResponseWriterBinder{
 		Writer:         c.ResponseWriter,
@@ -32,5 +31,6 @@ func (h handlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	c.ResponseWriter.Header().Set("Connection", "keep-alive")
 	c.ResponseWriter.Header().Set("Vary", "Accept-Encoding")
 
+	// Enter the handlers stack.
 	c.Next()
 }
