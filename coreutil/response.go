@@ -11,7 +11,7 @@ func ResponseStatus(w http.ResponseWriter) int {
 	return int(httpResponseStruct(reflect.ValueOf(w)).FieldByName("status").Int())
 }
 
-// httpResponseStruct returns the response structure after going trough all theintermediary ResponseWriterBinder.
+// httpResponseStruct returns the response structure after going trough all the intermediary responseWriter Binders.
 func httpResponseStruct(v reflect.Value) reflect.Value {
 	switch v.Type().String() {
 	case "core.ResponseWriterBinder":
@@ -19,7 +19,7 @@ func httpResponseStruct(v reflect.Value) reflect.Value {
 	case "*http.response":
 		return v.Elem()
 	default:
-		panic("core: call of httpResponseStruct on unknown interface type")
+		panic("coreutil: call of httpResponseStruct on unknown interface type")
 	}
 }
 
