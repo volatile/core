@@ -3,22 +3,21 @@ package core
 import (
 	"flag"
 	"net/http"
-	"strconv"
 )
 
 var (
 	// Production defines if the server must be using production settings.
 	// It can be used by handlers to provide different logic for this environment.
 	Production bool
-	// Port stores the port on which the server is running.
-	Port int
+	// Address is the TCP network address on which the server is listening and serving.
+	Address string
 
 	beforeRun []func()
 )
 
 func init() {
 	flag.BoolVar(&Production, "production", false, "run the server in production environment")
-	flag.IntVar(&Port, "port", 8080, "the port to listen on")
+	flag.StringVar(&Address, "address", ":8080", "the address to listen and serving on")
 	flag.Parse()
 }
 
@@ -38,5 +37,5 @@ func Run() {
 		f()
 	}
 
-	panic(http.ListenAndServe(":"+strconv.Itoa(Port), handlers))
+	panic(http.ListenAndServe(Address, handlers))
 }
