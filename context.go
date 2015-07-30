@@ -1,21 +1,18 @@
 package core
 
-import (
-	"io"
-	"net/http"
-)
+import "net/http"
 
 // Context contains the data used on the wire of each request.
 // You can pass data through handlers thanks to the Data field.
 type Context struct {
 	ResponseWriter http.ResponseWriter
 	Request        *http.Request
-	Data           map[string]interface{}
+	Data           map[string]interface{} // Generic field to pass arbitrary data through the stack.
 	index          int
-	written        bool
+	written        bool // Flag to know when the response is written
 }
 
-// Next calls the next handler in the stack.
+// Next calls the next handler in the stack, but only if the response is not already written.
 func (c *Context) Next() {
 	if !c.written {
 		c.index++
@@ -23,16 +20,13 @@ func (c *Context) Next() {
 	}
 }
 
-// ResponseWriterBinder can be used by handlers to pass a new ResponseWriter to the next handlers and write back to the original ResponseWriter.
-type ResponseWriterBinder struct {
-	io.Writer
+// contextWriter is a binder that sets the c.written flag on first write.
+type contextWriter struct {
 	http.ResponseWriter
-	BeforeWrite func([]byte)
+	context *Context
 }
 
-func (w ResponseWriterBinder) Write(b []byte) (int, error) {
-	if w.BeforeWrite != nil {
-		w.BeforeWrite(b)
-	}
-	return w.Writer.Write(b)
+func (w contextWriter) Write(p []byte) (int, error) {
+	w.context.written = true
+	return w.ResponseWriter.Write(p)
 }
