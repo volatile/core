@@ -27,10 +27,6 @@ func BeforeRun(f func()) {
 
 // Run starts the server for listening and serving.
 func Run() {
-	if handlers == nil {
-		panic("core: the handlers stack cannot be empty")
-	}
-
 	// Add a last handler to prevent "index out of range" errors if the previous last handler in stack calls Next().
 	Use(func(c *Context) {
 		http.NotFound(c.ResponseWriter, c.Request)
