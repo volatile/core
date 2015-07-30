@@ -49,7 +49,7 @@ These handlers are ready to be integrated in any of your app…
 
 Log — Requests logging — https://github.com/volatile/log
 
-Compress — Responses compressing — https://github.com/volatile/compress
+Compress — Clever response compressing — https://github.com/volatile/compress
 
 CORS — Cross-Origin Resource Sharing support — https://github.com/volatile/cors
 

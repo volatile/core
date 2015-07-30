@@ -59,7 +59,7 @@ Some third-party handlers may have different behaviors following the environment
 These handlers are ready to be integrated in any of your app…
 
 - [Log](https://github.com/volatile/log) — Requests logging
-- [Compress](https://github.com/volatile/compress) — Responses compressing
+- [Compress](https://github.com/volatile/compress) — Clever response compressing
 - [CORS](https://github.com/volatile/cors) — Cross-Origin Resource Sharing support
 - [Static](https://github.com/volatile/static) — Simple assets serving
 - *Others are coming…*
