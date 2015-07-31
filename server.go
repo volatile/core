@@ -6,14 +6,13 @@ import (
 )
 
 var (
-	// Production defines if the server must be using production settings.
-	// It can be used by handlers to provide different logic for this environment.
+	// Production allows handlers know whether the server is running in a production environment.
 	Production bool
 
 	// Address is the TCP network address on which the server is listening and serving.
 	Address string
 
-	// beforeRun stores a set of functions that will be triggered just before running the server.
+	// beforeRun stores a set of functions that are triggered just before running the server.
 	beforeRun []func()
 )
 
