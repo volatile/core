@@ -28,6 +28,20 @@ func TestResponseWriterBinder(t *testing.T) {
 	}
 
 	if w.Header().Get(headerKey) != headerValue {
-		t.Errorf(`response writer binder: headerKey header: want %q, got %q`, headerValue, w.Header().Get(headerKey))
+		t.Errorf("response writer binder: %q header: want %q, got %q", headerKey, headerValue, w.Header().Get(headerKey))
+	}
+}
+
+func TestSetDetectedContentType(t *testing.T) {
+	headerKey := "Content-Type"
+	headerValue := "text/html; charset=utf-8"
+
+	w := httptest.NewRecorder()
+	w.WriteHeader(403)
+
+	SetDetectedContentType(w, []byte("<!DOCTYPE html>"))
+
+	if w.Header().Get(headerKey) != headerValue {
+		t.Errorf("set detected content type: want %q, got %q", headerValue, w.Header().Get(headerKey))
 	}
 }
