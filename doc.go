@@ -1,13 +1,13 @@
 /*
-Package core is the perfect foundation for any web app.
-It allows you to connect all and only the components you need in a flexible and efficient way.
+Package core is the perfect foundation for any web app as it's designed to have the best balance between readability, flexibility and performance.
 
-A handlers (or "middlewares") stack is used to pass data in line, from the first to the last handler.
-So you can perform actions downstream, then filter and manipulate the response upstream.
+It provides a pure handler (or "middleware") stack so you can perform actions downstream, then filter and manipulate the response upstream.
 
-No handlers are bundled in this package.
+No handlers or helpers are bundled in the Core: it does one thing and does it well.
+You can find official packages below.
 
-For a complete documentation, see the Volatile website : http://volatile.whitedevops.com
+For a complete documentation, see the Volatile website: http://volatile.whitedevops.com.
+You can also read all the code (~100 LOC) within minutes.
 
 Usage
 
@@ -37,34 +37,37 @@ Usage
 		core.Run()
 	}
 
-Your app is reachable at http://localhost:8080/.
-If you want to use a custom address, set the "-address" parameter when running your app.
+By default, your app is reachable at http://localhost:8080.
 
-Also, use the "-production" parameter when serving in a production environment.
-Some third-party handlers may have different behaviors following the environment.
+- Use the -address parameter to set a custom listening address.
+  The value is saved in core.Address.
+
+- Use the -production parameter when serving in a production environment.
+  Some third-party handlers may have different behaviors depending on the environment.
+  The value is saved in core.Production.
 
 Official handlers
 
 These handlers are ready to be integrated in any of your app…
 
-Log — Requests logging — https://github.com/volatile/log
-
 Compress — Clever response compressing — https://github.com/volatile/compress
 
 CORS — Cross-Origin Resource Sharing support — https://github.com/volatile/cors
 
+Log — Requests logging — https://github.com/volatile/log
+
 Static — Simple assets serving — https://github.com/volatile/static
 
-Others are coming…
+Others come…
 
 Official helpers
 
 Helpers provide syntactic sugar to ease repetitive code…
 
-Route — Flexible routing helper — https://github.com/volatile/route
-
 Response — Readable response helper — https://github.com/volatile/response
 
-Others are coming…
+Route — Flexible routing helper — https://github.com/volatile/route
+
+Others come…
 */
 package core
