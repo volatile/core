@@ -37,7 +37,6 @@ func TestSetDetectedContentType(t *testing.T) {
 	headerValue := "text/html; charset=utf-8"
 
 	w := httptest.NewRecorder()
-	w.WriteHeader(403)
 
 	SetDetectedContentType(w, []byte("<!DOCTYPE html>"))
 
