@@ -39,12 +39,12 @@ Usage
 
 By default, your app is reachable at http://localhost:8080.
 
-- Use the -address parameter to set a custom listening address.
-  The value is saved in core.Address.
+Use the -address parameter to set a custom listening address.
+The value is saved in core.Address.
 
-- Use the -production parameter when serving in a production environment.
-  Some third-party handlers may have different behaviors depending on the environment.
-  The value is saved in core.Production.
+Use the -production parameter when serving in a production environment.
+Some third-party handlers may have different behaviors depending on the environment.
+The value is saved in core.Production.
 
 Official handlers
 
