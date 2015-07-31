@@ -9,9 +9,11 @@ var (
 	// Production defines if the server must be using production settings.
 	// It can be used by handlers to provide different logic for this environment.
 	Production bool
+
 	// Address is the TCP network address on which the server is listening and serving.
 	Address string
 
+	// beforeRun stores a set of functions that will be triggered just before running the server.
 	beforeRun []func()
 )
 

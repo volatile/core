@@ -12,7 +12,7 @@ func Use(h func(*Context)) {
 }
 
 func (h handlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	// Init a new context for the request.
+	// Init a new context for the actual request.
 	c := &Context{
 		Request: r,
 		index:   -1, // Begin with -1 because "c.Next()" will increment index before calling the first handler.
