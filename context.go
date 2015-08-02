@@ -27,7 +27,7 @@ type contextWriter struct {
 	context *Context
 }
 
-// Write sets the context's "writte" flag before writing the response.
+// Write sets the context's "written" flag before writing the response.
 func (w contextWriter) Write(p []byte) (int, error) {
 	w.context.written = true
 	return w.ResponseWriter.Write(p)
