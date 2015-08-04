@@ -6,10 +6,12 @@ It provides a pure handler (or "middleware") stack so you can perform actions do
 No handlers or helpers are bundled in the Core: it does one thing and does it well.
 You can find official packages below.
 
-For a complete documentation, see the Volatile website: http://volatile.whitedevops.com.
+For a complete documentation, see the Volatile website (http://volatile.whitedevops.com).
 You can also read all the code (~100 LOC) within minutes.
 
 Usage
+
+Here is an example a logger followed by the response writing:
 
 	package main
 
