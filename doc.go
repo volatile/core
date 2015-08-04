@@ -11,7 +11,7 @@ You can also read all the code (~100 LOC) within minutes.
 
 Usage
 
-Here is an example a logger followed by the response writing:
+Here is an example of a logger followed by the response writing:
 
 	package main
 
