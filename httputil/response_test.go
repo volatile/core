@@ -1,4 +1,4 @@
-package coreutil
+package httputil
 
 import (
 	"net/http/httptest"
