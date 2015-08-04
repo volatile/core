@@ -22,14 +22,14 @@ func init() {
 	flag.Parse()
 }
 
-// BeforeRun adds a function that will be triggered before runnning the server.
+// BeforeRun adds a function that will be triggered just before running the server.
 func BeforeRun(f func()) {
 	beforeRun = append(beforeRun, f)
 }
 
 // Run starts the server for listening and serving.
 func Run() {
-	// Add a last handler to prevent "index out of range" errors if the previous last handler in stack calls Next().
+	// Add a last handler to prevent "index out of range" errors if the previous last handler calls Next.
 	Use(func(c *Context) {
 		http.NotFound(c.ResponseWriter, c.Request)
 	})
