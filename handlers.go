@@ -18,6 +18,7 @@ func (h handlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Make a context for the request.
 	c := &Context{
 		Request: r,
+		Data:    make(map[string]interface{}),
 		index:   -1, // Begin with -1 because Next will increment the index before calling the first handler.
 	}
 	c.ResponseWriter = contextWriter{w, c} // Use a binder to set the context's written flag on the first write.
