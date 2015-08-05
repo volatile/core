@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-// Stack logs the package pack with an error err and the stack trace.
+// Stack logs the error err with caller package and stack trace.
 func Stack(err error) {
 	stack := make([]byte, 64<<10)
 	stack = stack[:runtime.Stack(stack, false)]
