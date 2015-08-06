@@ -11,7 +11,7 @@ You can also read all the code (~100 LOC) within minutes.
 
 Usage
 
-Here is an example of a logger followed by the response writing:
+Example of a logger followed by the response writing:
 
 	package main
 
@@ -42,11 +42,11 @@ Here is an example of a logger followed by the response writing:
 By default, your app is reachable at http://localhost:8080.
 
 Use the -address parameter to set a custom listening address.
-The value is saved in core.Address.
+The value is saved in Address.
 
 Use the -production parameter when serving in a production environment.
 Some third-party handlers may have different behaviors depending on the environment.
-The value is saved in core.Production.
+The value is saved in Production.
 
 Official handlers
 
@@ -65,6 +65,8 @@ Others come…
 Official helpers
 
 Helpers provide syntactic sugar to ease repetitive code…
+
+Response — Simple internationalization — https://github.com/volatile/i18n
 
 Response — Readable response helper — https://github.com/volatile/response
 
