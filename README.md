@@ -50,11 +50,11 @@ func main() {
 By default, your app is reachable at [localhost:8080](http://localhost:8080).
 
 - Use the `-address` parameter to set a custom listening address.  
-  The value is saved in `core.Address`.
+  The value is saved in [`Address`](https://godoc.org/github.com/volatile/core#Address).
 
 - Use the `-production` parameter when serving in a production environment.  
   Some third-party handlers may have different behaviors depending on the environment.  
-  The value is saved in `core.Production`.
+  The value is saved [`Production`](https://godoc.org/github.com/volatile/core#Production).
 
 ## Official handlers
 
@@ -70,6 +70,7 @@ These handlers are ready to be integrated in any of your app…
 
 Helpers provide syntactic sugar to ease repetitive code…
 
+- [I18n](https://github.com/volatile/i18n) — Simple internationalization
 - [Response](https://github.com/volatile/response) — Readable response helper
 - [Route](https://github.com/volatile/route) — Flexible routing helper
 - *Others come…*
