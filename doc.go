@@ -9,6 +9,12 @@ You can find official packages below.
 For a complete documentation, see the Volatile website (http://volatile.whitedevops.com).
 You can also read all the code (~100 LOC) within minutes.
 
+Installation
+
+In the terminal:
+
+	$ go get github.com/volatile/core
+
 Usage
 
 Example of a logger followed by the response writing:
