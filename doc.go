@@ -64,6 +64,8 @@ CORS — Cross-Origin Resource Sharing support — https://github.com/volatile/c
 
 Log — Requests logging — https://github.com/volatile/log
 
+Secure — Quick security wins — https://github.com/volatile/secure
+
 Static — Simple assets serving — https://github.com/volatile/static
 
 Others come…
@@ -72,7 +74,7 @@ Official helpers
 
 Helpers provide syntactic sugar to ease repetitive code…
 
-Response — Simple internationalization — https://github.com/volatile/i18n
+I18n — Simple internationalization — https://github.com/volatile/i18n
 
 Response — Readable response helper — https://github.com/volatile/response
 

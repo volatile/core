@@ -62,6 +62,7 @@ These handlers are ready to be integrated in any of your app…
 - [Compress](https://github.com/volatile/compress) — Clever response compressing
 - [CORS](https://github.com/volatile/cors) — Cross-Origin Resource Sharing support
 - [Log](https://github.com/volatile/log) — Requests logging
+- [Secure](https://github.com/volatile/secure) — Quick security wins
 - [Static](https://github.com/volatile/static) — Simple assets serving
 - *Others come…*
 
