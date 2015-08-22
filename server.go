@@ -16,12 +16,6 @@ var (
 	beforeRun []func()
 )
 
-func init() {
-	flag.BoolVar(&Production, "production", false, "run the server in production environment")
-	flag.StringVar(&Address, "address", ":8080", "the address to listen and serving on")
-	flag.Parse()
-}
-
 // BeforeRun adds a function that will be triggered just before running the server.
 func BeforeRun(f func()) {
 	beforeRun = append(beforeRun, f)
@@ -33,6 +27,10 @@ func Run() {
 	Use(func(c *Context) {
 		http.NotFound(c.ResponseWriter, c.Request)
 	})
+
+	flag.BoolVar(&Production, "production", false, "run the server in production environment")
+	flag.StringVar(&Address, "address", ":8080", "the address to listen and serving on")
+	flag.Parse()
 
 	for _, f := range beforeRun {
 		f()
