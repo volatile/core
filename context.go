@@ -17,7 +17,7 @@ type Context struct {
 func (c *Context) Next() {
 	if !c.written {
 		c.index++
-		handlers[c.index](c)
+		Handlers[c.index](c)
 	}
 }
 

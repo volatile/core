@@ -2,19 +2,19 @@ package core
 
 import "net/http"
 
-// handlersStack contains a set of handlers.
-type handlersStack []func(*Context)
+// HandlersStack contains a set of handlers.
+type HandlersStack []func(*Context)
 
-// handlers contains the handler stack used for serving.
-var handlers handlersStack
+// Handlers contains the handler stack used for serving.
+var Handlers HandlersStack
 
 // Use adds a handler to the handler stack.
 func Use(h func(*Context)) {
-	handlers = append(handlers, h)
+	Handlers = append(Handlers, h)
 }
 
 // ServeHTTP makes a context for the request, sets some "good practice" default headers and enters the handler stack.
-func (h handlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (h HandlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Make a context for the request.
 	c := &Context{
 		Request: r,
