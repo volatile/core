@@ -9,15 +9,17 @@ type Context struct {
 	ResponseWriter http.ResponseWriter
 	Request        *http.Request
 	Data           map[string]interface{}
-	index          int  // Keeps the actual handler index.
-	written        bool // A flag to know if the response has been written.
+	index          int           // Keeps the actual handler index.
+	handlersStack  HandlersStack // Keeps the reference to the actual handlers stack.
+	written        bool          // A flag to know if the response has been written.
 }
 
 // Next calls the next handler in the stack, but only if the response isn't already written.
 func (c *Context) Next() {
-	if !c.written {
+	// Call the next handler only if there is one and the response hasn't been written.
+	if !c.written && len(c.handlersStack)-1 > c.index {
 		c.index++
-		Handlers[c.index](c)
+		c.handlersStack[c.index](c)
 	}
 }
 

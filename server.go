@@ -28,14 +28,9 @@ func BeforeRun(f func()) {
 
 // Run starts the server for listening and serving.
 func Run() {
-	// Add a last handler to prevent "index out of range" errors if the previous last handler calls Next.
-	Use(func(c *Context) {
-		http.NotFound(c.ResponseWriter, c.Request)
-	})
-
 	for _, f := range beforeRun {
 		f()
 	}
 
-	panic(http.ListenAndServe(Address, Handlers))
+	panic(http.ListenAndServe(Address, DefaultHandlersStack))
 }
