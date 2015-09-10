@@ -5,15 +5,12 @@ import (
 	"net/http"
 )
 
-// DefaultAddress provides a default address of ":8080".
-const DefaultAddress = ":8080"
-
 var (
 	// Production allows handlers know whether the server is running in a production environment.
 	Production bool
 
-	// Address is the TCP network address on which the server is listening and serving.
-	Address = DefaultAddress
+	// Address is the TCP network address on which the server is listening and serving. Default is ":8080".
+	Address = ":8080"
 
 	// beforeRun stores a set of functions that are triggered just before running the server.
 	beforeRun []func()
@@ -21,7 +18,7 @@ var (
 
 func init() {
 	flag.BoolVar(&Production, "production", false, "run the server in production environment")
-	flag.StringVar(&Address, "address", DefaultAddress, "the address to listen and serving on")
+	flag.StringVar(&Address, "address", Address, "the address to listen and serving on")
 }
 
 // BeforeRun adds a function that will be triggered just before running the server.
