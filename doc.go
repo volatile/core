@@ -47,12 +47,37 @@ Example of a logger followed by the response writing:
 
 By default, your app is reachable at http://localhost:8080.
 
-Use the -address parameter to set a custom listening address.
+Note that these parameters are preset:
+
+-address to set a custom listening address.
 The value is saved in Address.
 
-Use the -production parameter when serving in a production environment.
+-production to switch on production environment settings.
 Some third-party handlers may have different behaviors depending on the environment.
 The value is saved in Production.
+
+It's up to you to call flag.Parse() in your main function if you want to use them.
+
+Also, this package is fully compatible with the net/http.Handler interface:
+
+	package main
+
+	import (
+		"fmt"
+		"net/http"
+
+		"github.com/volatile/core"
+	)
+
+	func main() {
+		hs := core.NewHandlersStack()
+
+		hs.Use(func(c *core.Context) {
+			fmt.Fprint(c.ResponseWriter, "Hello, World!")
+		})
+
+		http.ListenAndServe(":8080", hs)
+	}
 
 Official handlers
 
