@@ -34,3 +34,9 @@ func (w contextWriter) Write(p []byte) (int, error) {
 	w.context.written = true
 	return w.ResponseWriter.Write(p)
 }
+
+// WriteHeader sets the context's written flag before writing the response header.
+func (w contextWriter) WriteHeader(code int) {
+	w.context.written = true
+	w.ResponseWriter.WriteHeader(code)
+}

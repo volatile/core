@@ -40,4 +40,8 @@ func (hs HandlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	c.ResponseWriter.Header().Set("Vary", "Accept-Encoding")
 
 	c.Next() // Enter the handler stack.
+
+	if !c.written {
+		http.NotFound(c.ResponseWriter, c.Request)
+	}
 }
