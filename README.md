@@ -63,7 +63,7 @@ It's up to you to call [`flag.Parse()`](https://golang.org/pkg/flag/#Parse) in y
 
 ---
 
-Also, this package is fully compatible with the [`net/http.Handler`](http://godoc.org/net/http#Handler) interface:
+Also, this package is fully compatible with the [`net/http.Handler`](https://golang.org/pkg/net/http/#Handler) interface:
 
 ```Go
 package main
