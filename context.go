@@ -17,7 +17,7 @@ type Context struct {
 // Next calls the next handler in the stack, but only if the response isn't already written.
 func (c *Context) Next() {
 	// Call the next handler only if there is one and the response hasn't been written.
-	if !c.written && len(c.handlersStack)-1 > c.index {
+	if !c.written && c.index < len(c.handlersStack)-1 {
 		c.index++
 		c.handlersStack[c.index](c)
 	}
