@@ -28,6 +28,8 @@ func BeforeRun(f func()) {
 
 // Run starts the server for listening and serving.
 func Run() {
+	flag.Parse()
+
 	for _, f := range beforeRun {
 		f()
 	}
