@@ -6,8 +6,16 @@ import (
 	"strings"
 )
 
-// Stack logs the error err with caller package and stack trace.
-func Stack(err error) {
+// Stack logs the error err with the stack trace.
+func Stack(err interface{}) {
+	stack := make([]byte, 64<<10)
+	stack = stack[:runtime.Stack(stack, false)]
+
+	log.Printf("%v\n%s", err, stack)
+}
+
+// StackWithCaller logs the error err with the caller package name and the stack trace.
+func StackWithCaller(err interface{}) {
 	stack := make([]byte, 64<<10)
 	stack = stack[:runtime.Stack(stack, false)]
 

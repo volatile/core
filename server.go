@@ -32,5 +32,5 @@ func Run() {
 		f()
 	}
 
-	panic(http.ListenAndServe(Address, DefaultHandlersStack))
+	panic(http.ListenAndServe(Address, defaultHandlersStack))
 }

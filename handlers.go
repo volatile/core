@@ -1,30 +1,47 @@
 package core
 
-import "net/http"
+import (
+	"log"
+	"net/http"
+	"runtime"
+)
 
 // HandlersStack contains a set of handlers.
-type HandlersStack []func(*Context)
-
-// DefaultHandlersStack contains the default handler stack used for serving.
-var DefaultHandlersStack = NewHandlersStack()
-
-// NewHandlersStack allocates and returns a new .
-func NewHandlersStack() HandlersStack {
-	return make(HandlersStack, 0)
+type HandlersStack struct {
+	Handlers     []func(*Context)            // The handlers stack.
+	PanicHandler func(*Context, interface{}) // The handler called in case of panic. Useful to send custom server error information.
 }
 
-// Use adds a handler to the handler stack.
+// defaultHandlersStack contains the default handlers stack used for serving.
+var defaultHandlersStack = NewHandlersStack()
+
+// NewHandlersStack returns a new NewHandlersStack.
+func NewHandlersStack() *HandlersStack {
+	return new(HandlersStack)
+}
+
+// Use adds a handler to the handlers stack.
 func (hs *HandlersStack) Use(h func(*Context)) {
-	*hs = append(*hs, h)
+	hs.Handlers = append(hs.Handlers, h)
 }
 
-// Use adds a handler to the handler stack.
+// Use adds a handler to the default handlers stack.
 func Use(h func(*Context)) {
-	DefaultHandlersStack.Use(h)
+	defaultHandlersStack.Use(h)
 }
 
-// ServeHTTP makes a context for the request, sets some "good practice" default headers and enters the handler stack.
-func (hs HandlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+// HandlePanic sets the panic handler of the handlers stack.
+func (hs *HandlersStack) HandlePanic(h func(*Context, interface{})) {
+	hs.PanicHandler = h
+}
+
+// HandlePanic sets the panic handler of the default handlers stack.
+func HandlePanic(h func(*Context, interface{})) {
+	defaultHandlersStack.HandlePanic(h)
+}
+
+// ServeHTTP makes a context for the request, sets some "good practice" default headers and enters the handlers stack.
+func (hs *HandlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Make a context for the request.
 	c := &Context{
 		Request:       r,
@@ -39,5 +56,24 @@ func (hs HandlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	c.ResponseWriter.Header().Set("Connection", "keep-alive")
 	c.ResponseWriter.Header().Set("Vary", "Accept-Encoding")
 
-	c.Next() // Enter the handler stack.
+	// Always recover form panics.
+	defer hs.recover(c)
+
+	c.Next() // Enter the handlers stack.
+}
+
+func (hs *HandlersStack) recover(c *Context) {
+	if err := recover(); err != nil {
+		stack := make([]byte, 64<<10)
+		stack = stack[:runtime.Stack(stack, false)]
+		log.Printf("%v\n%s", err, stack)
+
+		if hs.PanicHandler != nil {
+			hs.PanicHandler(c, err)
+		}
+
+		if !c.written {
+			http.Error(c.ResponseWriter, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		}
+	}
 }
