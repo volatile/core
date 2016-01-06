@@ -17,10 +17,15 @@ type Context struct {
 // Next calls the next handler in the stack, but only if the response isn't already written.
 func (c *Context) Next() {
 	// Call the next handler only if there is one and the response hasn't been written.
-	if !c.written && c.index < len(c.handlersStack.Handlers)-1 {
+	if !c.IsWritten() && c.index < len(c.handlersStack.Handlers)-1 {
 		c.index++
 		c.handlersStack.Handlers[c.index](c)
 	}
+}
+
+// IsWritten tells if the response has been written.
+func (c *Context) IsWritten() bool {
+	return c.written
 }
 
 // contextWriter represents a binder that catches a downstream response writing and sets the context's written flag on the first write.

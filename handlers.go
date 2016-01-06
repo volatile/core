@@ -68,11 +68,10 @@ func (hs *HandlersStack) recover(c *Context) {
 		stack = stack[:runtime.Stack(stack, false)]
 		log.Printf("%v\n%s", err, stack)
 
-		if hs.PanicHandler != nil {
-			hs.PanicHandler(c, err)
-		}
-
-		if !c.written {
+		if !c.IsWritten() {
+			if hs.PanicHandler != nil {
+				hs.PanicHandler(c, err)
+			}
 			http.Error(c.ResponseWriter, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		}
 	}
