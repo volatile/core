@@ -71,8 +71,9 @@ func (hs *HandlersStack) recover(c *Context) {
 		if !c.IsWritten() {
 			if hs.PanicHandler != nil {
 				hs.PanicHandler(c, err)
+			} else {
+				http.Error(c.ResponseWriter, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 			}
-			http.Error(c.ResponseWriter, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		}
 	}
 }
