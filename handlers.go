@@ -1,10 +1,6 @@
 package core
 
-import (
-	"log"
-	"net/http"
-	"runtime"
-)
+import "net/http"
 
 // HandlersStack contains a set of handlers.
 type HandlersStack struct {
@@ -56,24 +52,6 @@ func (hs *HandlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	c.ResponseWriter.Header().Set("Connection", "keep-alive")
 	c.ResponseWriter.Header().Set("Vary", "Accept-Encoding")
 
-	// Always recover form panics.
-	defer hs.recover(c)
-
-	c.Next() // Enter the handlers stack.
-}
-
-func (hs *HandlersStack) recover(c *Context) {
-	if err := recover(); err != nil {
-		stack := make([]byte, 64<<10)
-		stack = stack[:runtime.Stack(stack, false)]
-		log.Printf("%v\n%s", err, stack)
-
-		if !c.Written() {
-			if hs.PanicHandler != nil {
-				hs.PanicHandler(c, err)
-			} else {
-				http.Error(c.ResponseWriter, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-			}
-		}
-	}
+	defer c.Recover() // Always recover form panics.
+	c.Next()          // Enter the handlers stack.
 }

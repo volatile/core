@@ -1,6 +1,10 @@
 package core
 
-import "net/http"
+import (
+	"log"
+	"net/http"
+	"runtime"
+)
 
 // Context contains all the data needed during the serving flow.
 // It contains the standard http.ResponseWriter and *http.Request.
@@ -25,6 +29,23 @@ func (c *Context) Next() {
 	if !c.Written() && c.index < len(c.handlersStack.Handlers)-1 {
 		c.index++
 		c.handlersStack.Handlers[c.index](c)
+	}
+}
+
+// Recover recovers form panics.
+func (c *Context) Recover() {
+	if err := recover(); err != nil {
+		stack := make([]byte, 64<<10)
+		stack = stack[:runtime.Stack(stack, false)]
+		log.Printf("%v\n%s", err, stack)
+
+		if !c.Written() {
+			if c.handlersStack.PanicHandler != nil {
+				c.handlersStack.PanicHandler(c, err)
+			} else {
+				http.Error(c.ResponseWriter, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			}
+		}
 	}
 }
 
