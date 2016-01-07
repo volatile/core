@@ -33,6 +33,7 @@ func (c *Context) Next() {
 }
 
 // Recover recovers form panics.
+// It logs the stack and uses the PanicHandler (or a classic Internal Server Error) to write the response.
 func (c *Context) Recover() {
 	if err := recover(); err != nil {
 		stack := make([]byte, 64<<10)
