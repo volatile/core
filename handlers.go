@@ -68,7 +68,7 @@ func (hs *HandlersStack) recover(c *Context) {
 		stack = stack[:runtime.Stack(stack, false)]
 		log.Printf("%v\n%s", err, stack)
 
-		if !c.IsWritten() {
+		if !c.Written() {
 			if hs.PanicHandler != nil {
 				hs.PanicHandler(c, err)
 			} else {

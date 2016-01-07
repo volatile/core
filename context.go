@@ -14,15 +14,15 @@ type Context struct {
 	written        bool           // A flag to know if the response has been written.
 }
 
-// IsWritten tells if the response has been written.
-func (c *Context) IsWritten() bool {
+// Written tells if the response has been written.
+func (c *Context) Written() bool {
 	return c.written
 }
 
 // Next calls the next handler in the stack, but only if the response isn't already written.
 func (c *Context) Next() {
 	// Call the next handler only if there is one and the response hasn't been written.
-	if !c.IsWritten() && c.index < len(c.handlersStack.Handlers)-1 {
+	if !c.Written() && c.index < len(c.handlersStack.Handlers)-1 {
 		c.index++
 		c.handlersStack.Handlers[c.index](c)
 	}
