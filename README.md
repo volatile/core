@@ -48,9 +48,9 @@ func main() {
 
 By default, your app is reachable at [localhost:8080](http://localhost:8080).
 
----
+### Flags
 
-Note that these parameters are preset:
+These flags are preset:
 
 - `-address` to set a custom listening address.  
   The value is saved in [`Address`](https://godoc.org/github.com/volatile/core#Address).
@@ -61,9 +61,9 @@ Note that these parameters are preset:
 
 It's up to you to call [`flag.Parse()`](https://golang.org/pkg/flag/#Parse) in your main function if you want to use them.
 
----
+### `net/http` compatibility
 
-Also, this package is fully compatible with the [`net/http.Handler`](https://golang.org/pkg/net/http/#Handler) interface:
+Volatile Core is fully compatible with the [`net/http.Handler`](https://golang.org/pkg/net/http/#Handler) interface:
 
 ```Go
 package main
@@ -88,20 +88,18 @@ func main() {
 
 ## Official handlers
 
-These handlers are ready to be integrated in any of your app…
+These handlers are ready to be integrated in any of your app:
 
 - [Compress](https://github.com/volatile/compress) — Clever response compressing
 - [CORS](https://github.com/volatile/cors) — Cross-Origin Resource Sharing support
 - [Log](https://github.com/volatile/log) — Requests logging
 - [Secure](https://github.com/volatile/secure) — Quick security wins
 - [Static](https://github.com/volatile/static) — Simple assets serving
-- *Others come…*
 
 ## Official helpers
 
-Helpers provide syntactic sugar to ease repetitive code…
+These helpers provide syntactic sugar to ease repetitive code:
 
 - [I18n](https://github.com/volatile/i18n) — Simple internationalization
 - [Response](https://github.com/volatile/response) — Readable response helper
 - [Route](https://github.com/volatile/route) — Flexible routing helper
-- *Others come…*

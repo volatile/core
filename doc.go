@@ -47,18 +47,22 @@ Example of a logger followed by the response writing:
 
 By default, your app is reachable at http://localhost:8080.
 
-Note that these parameters are preset:
+Flags
 
--address to set a custom listening address.
+These flags are preset:
+
+● -address to set a custom listening address.
 The value is saved in Address.
 
--production to switch on production environment settings.
+● -production to switch on production environment settings.
 Some third-party handlers may have different behaviors depending on the environment.
 The value is saved in Production.
 
 It's up to you to call flag.Parse() in your main function if you want to use them.
 
-Also, this package is fully compatible with the net/http.Handler interface:
+net/http compatibility
+
+Volatile Core is fully compatible with the net/http.Handler interface:
 
 	package main
 
@@ -81,30 +85,26 @@ Also, this package is fully compatible with the net/http.Handler interface:
 
 Official handlers
 
-These handlers are ready to be integrated in any of your app…
+These handlers are ready to be integrated in any of your app:
 
-Compress — Clever response compressing — https://github.com/volatile/compress
+● Compress — Clever response compressing — https://github.com/volatile/compress
 
-CORS — Cross-Origin Resource Sharing support — https://github.com/volatile/cors
+● CORS — Cross-Origin Resource Sharing support — https://github.com/volatile/cors
 
-Log — Requests logging — https://github.com/volatile/log
+● Log — Requests logging — https://github.com/volatile/log
 
-Secure — Quick security wins — https://github.com/volatile/secure
+● Secure — Quick security wins — https://github.com/volatile/secure
 
-Static — Simple assets serving — https://github.com/volatile/static
-
-Others come…
+● Static — Simple assets serving — https://github.com/volatile/static
 
 Official helpers
 
-Helpers provide syntactic sugar to ease repetitive code…
+These helpers provide syntactic sugar to ease repetitive code:
 
-I18n — Simple internationalization — https://github.com/volatile/i18n
+● I18n — Simple internationalization — https://github.com/volatile/i18n
 
-Response — Readable response helper — https://github.com/volatile/response
+● Response — Readable response helper — https://github.com/volatile/response
 
-Route — Flexible routing helper — https://github.com/volatile/route
-
-Others come…
+● Route — Flexible routing helper — https://github.com/volatile/route
 */
 package core
