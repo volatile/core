@@ -63,14 +63,12 @@ It's up to you to call [`flag.Parse()`](https://golang.org/pkg/flag/#Parse) in y
 
 ### Panic recovering
 
-Volatile Core recovers your server from any panic, logs the error with stack, and sends a `500 Internal Server Error`.
-
+Volatile Core recovers your server from any panic, logs the error with stack, and sends a `500 Internal Server Error`.  
 If you want a make a custom response on panic, give it as a function to [`HandlePanic`](https://godoc.org/github.com/volatile/core#HandlePanic).
 
 ### Compatibility
 
-Volatile Core is fully compatible with the [`net/http.Handler`](https://golang.org/pkg/net/http/#Handler) interface.  
-Use [`NewHandlersStack`](https://godoc.org/github.com/volatile/core#NewHandlersStack):
+Volatile Core is fully compatible with the [`net/http.Handler`](https://golang.org/pkg/net/http/#Handler) interface. Use [`NewHandlersStack`](https://godoc.org/github.com/volatile/core#NewHandlersStack):
 
 ```Go
 package main
