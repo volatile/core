@@ -2,7 +2,7 @@
 
 Volatile Core is the perfect foundation for any web app as it's designed to have the best balance between **readability**, **flexibility** and **performance**.  
 
-It provides a pure handler (or *middleware*) stack so you can perform actions downstream, then filter and manipulate the response upstream.
+It provides a pure handlers (or *middlewares*) stack so you can perform actions downstream, then filter and manipulate the response upstream.
 
 No handlers or helpers are bundled in the Core: it does one thing and does it well.  
 You can find [official packages](#official-handlers) below.
