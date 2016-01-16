@@ -17,7 +17,7 @@ var (
 )
 
 func init() {
-	flag.BoolVar(&Production, "production", false, "run the server in production environment")
+	flag.BoolVar(&Production, "production", Production, "run the server in production environment")
 	flag.StringVar(&Address, "address", Address, "the address to listen and serving on")
 }
 
