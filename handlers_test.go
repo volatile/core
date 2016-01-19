@@ -7,32 +7,36 @@ import (
 )
 
 func TestServeHTTP(t *testing.T) {
+	statusWant := http.StatusForbidden
 	headerKey := "foo"
-	headerValue := "bar"
-	status := http.StatusForbidden
-	body := "foobar"
+	headerValueWant := "bar"
+	bodyWant := "foobar"
 
-	Use(func(c *Context) {
-		c.ResponseWriter.Header().Set(headerKey, headerValue)
-		c.ResponseWriter.WriteHeader(status)
-		c.ResponseWriter.Write([]byte(body))
+	hs := NewHandlersStack()
+	hs.Use(func(c *Context) { c.Next() })
+	hs.Use(func(c *Context) { c.Next() })
+	hs.Use(func(c *Context) {
+		c.ResponseWriter.Header().Set(headerKey, headerValueWant)
+		c.ResponseWriter.WriteHeader(statusWant)
+		c.ResponseWriter.Write([]byte(bodyWant))
 	})
 
 	r, _ := http.NewRequest("GET", "", nil)
 	w := httptest.NewRecorder()
-	handlers.ServeHTTP(w, r)
+	hs.ServeHTTP(w, r)
 
-	if w.Code != status {
-		t.Errorf("status code: want %q, got %q", status, w.Code)
+	statusGot := w.Code
+	if statusWant != statusGot {
+		t.Errorf("status code: want %q, got %q", statusWant, statusGot)
 	}
 
-	headerFooValue := w.Header().Get(headerKey)
-	if headerFooValue != headerValue {
-		t.Errorf("header: want %q, got %q", headerValue, headerFooValue)
+	headerValueGot := w.Header().Get(headerKey)
+	if headerValueWant != headerValueGot {
+		t.Errorf("header: want %q, got %q", headerValueWant, headerValueGot)
 	}
 
-	wbody := w.Body.String()
-	if wbody != body {
-		t.Errorf("body: want %q, got %q", body, wbody)
+	bodyGot := w.Body.String()
+	if bodyWant != bodyGot {
+		t.Errorf("body: want %q, got %q", bodyWant, bodyGot)
 	}
 }
