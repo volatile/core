@@ -27,7 +27,7 @@ func TestServeHTTP(t *testing.T) {
 
 	statusGot := w.Code
 	if statusWant != statusGot {
-		t.Errorf("status code: want %q, got %q", statusWant, statusGot)
+		t.Errorf("status code: want %d, got %d", statusWant, statusGot)
 	}
 
 	headerValueGot := w.Header().Get(headerKey)

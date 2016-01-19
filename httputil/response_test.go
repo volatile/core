@@ -1,6 +1,7 @@
 package httputil
 
 import (
+	"net/http"
 	"net/http/httptest"
 	"testing"
 
@@ -8,9 +9,9 @@ import (
 )
 
 func TestResponseWriterBinder(t *testing.T) {
-	headerKey := "Content-Type"
-	headerValue := "text/plain"
-	body := "foobar"
+	headerKey := "foo"
+	headerValueWant := "bar"
+	bodyWant := "foobar"
 
 	w := httptest.NewRecorder()
 	c := &core.Context{
@@ -18,29 +19,59 @@ func TestResponseWriterBinder(t *testing.T) {
 	}
 
 	BindResponseWriter(c.ResponseWriter, c, func(p []byte) {
-		c.ResponseWriter.Header().Set(headerKey, headerValue)
+		c.ResponseWriter.Header().Set(headerKey, headerValueWant)
 	})
 
-	c.ResponseWriter.Write([]byte(body))
+	c.ResponseWriter.Write([]byte(bodyWant))
 
-	if w.Body.String() != body {
-		t.Errorf("response writer binder: body: want %q, got %q", body, w.Body.String())
+	headerValueGot := w.Header().Get(headerKey)
+	if headerValueWant != headerValueGot {
+		t.Errorf("header: want %q, got %q", headerValueWant, headerValueGot)
 	}
 
-	if w.Header().Get(headerKey) != headerValue {
-		t.Errorf("response writer binder: %q header: want %q, got %q", headerKey, headerValue, w.Header().Get(headerKey))
+	bodyGot := w.Body.String()
+	if bodyWant != bodyGot {
+		t.Errorf("body: want %q, got %q", bodyWant, bodyGot)
+	}
+}
+
+func TestResponseStatus(t *testing.T) {
+	statusWant := http.StatusForbidden
+	var statusGot, customStatusGot int
+
+	type CustomResponseWriter struct {
+		http.ResponseWriter
+	}
+
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		http.Error(w, http.StatusText(statusWant), statusWant)
+		statusGot = ResponseStatus(w)
+		customStatusGot = ResponseStatus(CustomResponseWriter{w})
+	}))
+	defer ts.Close()
+
+	if _, err := http.Get(ts.URL); err != nil {
+		t.Fatal(err)
+	}
+
+	if statusWant != statusGot {
+		t.Errorf("http.ResponseWriter: want %d, got %d", statusWant, statusGot)
+	}
+
+	if customStatusGot != statusGot {
+		t.Errorf("CustomResponseWriter: want %d, got %d", customStatusGot, statusGot)
 	}
 }
 
 func TestSetDetectedContentType(t *testing.T) {
 	headerKey := "Content-Type"
-	headerValue := "text/html; charset=utf-8"
+	headerValueWant := "text/html; charset=utf-8"
 
 	w := httptest.NewRecorder()
-
 	SetDetectedContentType(w, []byte("<!DOCTYPE html>"))
 
-	if w.Header().Get(headerKey) != headerValue {
-		t.Errorf("set detected content type: want %q, got %q", headerValue, w.Header().Get(headerKey))
+	headerValueGot := w.Header().Get(headerKey)
+	if headerValueWant != headerValueGot {
+		t.Errorf("set detected content type: want %q, got %q", headerValueWant, headerValueGot)
 	}
 }

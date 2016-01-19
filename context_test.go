@@ -29,7 +29,7 @@ func TestRecover(t *testing.T) {
 
 	statusGot := w.Code
 	if statusWant != statusGot {
-		t.Errorf("status code: want %q, got %q", statusWant, statusGot)
+		t.Errorf("status code: want %d, got %d", statusWant, statusGot)
 	}
 
 	bodyGot := w.Body.String()
@@ -63,7 +63,7 @@ func TestRecoverCustom(t *testing.T) {
 
 	statusGot := w.Code
 	if statusWant != statusGot {
-		t.Errorf("status code: want %q, got %q", statusWant, statusGot)
+		t.Errorf("status code: want %d, got %d", statusWant, statusGot)
 	}
 
 	bodyGot := w.Body.String()
