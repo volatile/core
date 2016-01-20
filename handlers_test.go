@@ -20,6 +20,9 @@ func TestServeHTTP(t *testing.T) {
 		c.ResponseWriter.WriteHeader(statusWant)
 		c.ResponseWriter.Write([]byte(bodyWant))
 	})
+	hs.Use(func(c *Context) {
+		c.ResponseWriter.Write([]byte("baz"))
+	})
 
 	r, _ := http.NewRequest("GET", "", nil)
 	w := httptest.NewRecorder()
