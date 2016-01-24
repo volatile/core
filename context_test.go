@@ -41,15 +41,18 @@ func TestRecover(t *testing.T) {
 func TestRecoverCustom(t *testing.T) {
 	statusWant := http.StatusServiceUnavailable
 	bodyWant := http.StatusText(http.StatusServiceUnavailable)
+	var errorWant, errorGot interface{}
+	errorWant = "foobar"
 
 	hs := NewHandlersStack()
-	hs.HandlePanic(func(c *Context, err interface{}) {
+	hs.HandlePanic(func(c *Context) {
+		errorGot = c.Data["panic"]
 		c.ResponseWriter.WriteHeader(statusWant)
 		c.ResponseWriter.Write([]byte(bodyWant))
 	})
 	hs.Use(func(c *Context) {
 		defer c.Recover()
-		panic("")
+		panic(errorWant)
 	})
 
 	oldOut := os.Stdout
@@ -60,6 +63,10 @@ func TestRecoverCustom(t *testing.T) {
 	hs.ServeHTTP(w, r)
 
 	log.SetOutput(oldOut)
+
+	if errorWant != errorGot {
+		t.Errorf("panic error: want %q, got %q", errorWant, errorGot)
+	}
 
 	statusGot := w.Code
 	if statusWant != statusGot {

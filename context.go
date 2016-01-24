@@ -46,7 +46,8 @@ func (c *Context) Recover() {
 
 		if !c.Written() {
 			if c.handlersStack.PanicHandler != nil {
-				c.handlersStack.PanicHandler(c, err)
+				c.Data["panic"] = err
+				c.handlersStack.PanicHandler(c)
 			} else {
 				http.Error(c.ResponseWriter, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 			}

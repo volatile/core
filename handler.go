@@ -2,10 +2,13 @@ package core
 
 import "net/http"
 
+// Handler represents a request handler.
+type Handler func(*Context)
+
 // HandlersStack contains a set of handlers.
 type HandlersStack struct {
-	Handlers     []func(*Context)            // The handlers stack.
-	PanicHandler func(*Context, interface{}) // The handler called in case of panic. Useful to send custom server error information.
+	Handlers     []Handler // The handlers stack.
+	PanicHandler Handler   // The handler called in case of panic. Useful to send custom server error information. Context.Data["panic"] contains the panic error.
 }
 
 // defaultHandlersStack contains the default handlers stack used for serving.
@@ -17,22 +20,24 @@ func NewHandlersStack() *HandlersStack {
 }
 
 // Use adds a handler to the handlers stack.
-func (hs *HandlersStack) Use(h func(*Context)) {
+func (hs *HandlersStack) Use(h Handler) {
 	hs.Handlers = append(hs.Handlers, h)
 }
 
 // Use adds a handler to the default handlers stack.
-func Use(h func(*Context)) {
+func Use(h Handler) {
 	defaultHandlersStack.Use(h)
 }
 
 // HandlePanic sets the panic handler of the handlers stack.
-func (hs *HandlersStack) HandlePanic(h func(*Context, interface{})) {
+// Context.Data["panic"] contains the panic error.
+func (hs *HandlersStack) HandlePanic(h Handler) {
 	hs.PanicHandler = h
 }
 
 // HandlePanic sets the panic handler of the default handlers stack.
-func HandlePanic(h func(*Context, interface{})) {
+// Context.Data["panic"] contains the panic error.
+func HandlePanic(h Handler) {
 	defaultHandlersStack.HandlePanic(h)
 }
 
