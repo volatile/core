@@ -10,9 +10,14 @@ Example of a logger, followed by a security headers setter, followed by a respon
 
 	// Log
 	core.Use(func(c *core.Context) {
-		start := time.Now()                                                           // Before the response.
-		c.Next()                                                                      // Execute the next handler in the stack (in this case, security headers setter).
-		log.Printf(" %s  %s  %s", c.Request.Method, c.Request.URL, time.Since(start)) // After the response.
+		// Before the response.
+		start := time.Now()
+
+		// Execute the next handler in the stack.
+		c.Next()
+
+		// After the response.
+		log.Printf(" %s  %s  %s", c.Request.Method, c.Request.URL, time.Since(start))
 	})
 
 	// Secure
@@ -21,7 +26,8 @@ Example of a logger, followed by a security headers setter, followed by a respon
 		c.ResponseWriter.Header().Set("X-Content-Type-Options", "nosniff")
 		c.ResponseWriter.Header().Set("X-XSS-Protection", "1; mode=block")
 
-		c.Next() // Execute the next handler in the stack (in this case, the response writer).
+		// Execute the next handler in the stack.
+		c.Next()
 	})
 
 	// Response
@@ -63,7 +69,8 @@ These flags are preset:
 		Value is saved in Address.
 	-production
 		Run the server in production environment.
-		Some third-party handlers may have different behaviors depending on the environment.
+		Some third-party handlers may have different behaviors
+		depending on the environment.
 		Value is saved in Production.
 
 It's up to you to call
