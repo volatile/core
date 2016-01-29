@@ -46,9 +46,7 @@ These flags are preset:
 				Value is saved in Production.
 
 It's up to you to call
-
 	flag.Parse()
-
 in your main function if you want to use them.
 
 Panic recovering
@@ -62,20 +60,20 @@ No handlers or helpers are bundled in the core: it does one thing and does it we
 That's why you need to import all and only the handlers or helpers you need:
 
 	compress	Clever response compressing
-				https://godoc.org/github.com/volatile/compress
+	        	https://godoc.org/github.com/volatile/compress
 	cors		Cross-Origin Resource Sharing support
-				https://godoc.org/github.com/volatile/cors
+	    		https://godoc.org/github.com/volatile/cors
 	i18n		Simple internationalization
-				https://godoc.org/github.com/volatile/i18n
+	    		https://godoc.org/github.com/volatile/i18n
 	log			Requests logging
-				https://godoc.org/github.com/volatile/log
+	   			https://godoc.org/github.com/volatile/log
 	response	Readable response helper
-				https://godoc.org/github.com/volatile/response
+	        	https://godoc.org/github.com/volatile/response
 	route		Flexible routing helper
-				https://godoc.org/github.com/volatile/route
+	     		https://godoc.org/github.com/volatile/route
 	secure 		Quick security wins
-				https://godoc.org/github.com/volatile/secure
+	      		https://godoc.org/github.com/volatile/secure
 	static		Simple assets serving
-				https://godoc.org/github.com/volatile/static
+	      		https://godoc.org/github.com/volatile/static
 */
 package core
