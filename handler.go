@@ -27,18 +27,20 @@ func Use(h func(*Context)) {
 }
 
 // HandlePanic sets the panic handler of the handlers stack.
+//
 // Context.Data["panic"] contains the panic error.
 func (hs *HandlersStack) HandlePanic(h func(*Context)) {
 	hs.PanicHandler = h
 }
 
 // HandlePanic sets the panic handler of the default handlers stack.
+//
 // Context.Data["panic"] contains the panic error.
 func HandlePanic(h func(*Context)) {
 	defaultHandlersStack.HandlePanic(h)
 }
 
-// ServeHTTP makes a context for the request, sets some "good practice" default headers and enters the handlers stack.
+// ServeHTTP makes a context for the request, sets some good practice default headers and enters the handlers stack.
 func (hs *HandlersStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Make a context for the request.
 	c := &Context{

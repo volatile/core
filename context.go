@@ -7,6 +7,7 @@ import (
 )
 
 // Context contains all the data needed during the serving flow, including the standard http.ResponseWriter and *http.Request.
+//
 // The Data field can be used to pass all kind of data through the handlers stack.
 type Context struct {
 	ResponseWriter http.ResponseWriter
