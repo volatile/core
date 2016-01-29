@@ -78,7 +78,7 @@ If you want to use a custom handler on panic, give one to HandlePanic.
 Handlers and helpers
 
 No handlers or helpers are bundled in the core: it does one thing and does it well.
-That's why you need to import all and only the handlers or helpers you need:
+That's why you have to import all and only the handlers or helpers you need:
 
 	compress
 		Clever response compressing
