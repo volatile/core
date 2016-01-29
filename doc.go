@@ -39,11 +39,13 @@ Flags
 
 These flags are preset:
 
-	-address	The address to listen and serving on.
-				Value is saved in Address.
-	-production	Run the server in production environment.
-				Some third-party handlers may have different behaviors depending on the environment.
-				Value is saved in Production.
+	-address
+		The address to listen and serving on.
+		Value is saved in Address.
+	-production
+		Run the server in production environment.
+		Some third-party handlers may have different behaviors depending on the environment.
+		Value is saved in Production.
 
 It's up to you to call
 	flag.Parse()
@@ -54,26 +56,34 @@ Panic recovering
 When using Run, your server always recovers from panics, logs the error with stack, and sends a 500 Internal Server Error.
 If you want to use a custom handler on panic, give one to HandlePanic.
 
-Handlers & Helpers
+Handlers and helpers
 
 No handlers or helpers are bundled in the core: it does one thing and does it well.
 That's why you need to import all and only the handlers or helpers you need:
 
-	compress	Clever response compressing
-	        	https://godoc.org/github.com/volatile/compress
-	cors		Cross-Origin Resource Sharing support
-	    		https://godoc.org/github.com/volatile/cors
-	i18n		Simple internationalization
-	    		https://godoc.org/github.com/volatile/i18n
-	log			Requests logging
-	   			https://godoc.org/github.com/volatile/log
-	response	Readable response helper
-	        	https://godoc.org/github.com/volatile/response
-	route		Flexible routing helper
-	     		https://godoc.org/github.com/volatile/route
-	secure 		Quick security wins
-	      		https://godoc.org/github.com/volatile/secure
-	static		Simple assets serving
-	      		https://godoc.org/github.com/volatile/static
+	compress
+		Clever response compressing
+		https://godoc.org/github.com/volatile/compress
+	cors
+		Cross-Origin Resource Sharing support
+		https://godoc.org/github.com/volatile/cors
+	i18n
+		Simple internationalization
+		https://godoc.org/github.com/volatile/i18n
+	log
+		Requests logging
+		https://godoc.org/github.com/volatile/log
+	response
+		Readable response helper
+		https://godoc.org/github.com/volatile/response
+	route
+		Flexible routing helper
+		https://godoc.org/github.com/volatile/route
+	secure
+		Quick security wins
+		https://godoc.org/github.com/volatile/secure
+	static
+		Simple assets serving
+		https://godoc.org/github.com/volatile/static
 */
 package core
