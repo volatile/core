@@ -6,7 +6,7 @@ The handlers stack
 A handler is a function that receives a context.
 It can be registered with Use and has the possibility to break the stream or to continue with the next handler in the stack.
 
-Example of a logger, followed security headers setter, followed by the response writer:
+Example of a logger, followed by a security headers setter, followed by a response writer:
 
 	// Log
 	core.Use(func(c *core.Context) {
