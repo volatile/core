@@ -6,13 +6,22 @@ The handlers stack
 A handler is a function that receives a context.
 It can be registered with Use and has the possibility to break the stream or to continue with the next handler in the stack.
 
-Example of a logger followed by the response writing:
+Example of a logger, followed security headers setting, followed by the response writing:
 
 	// Log
 	core.Use(func(c *core.Context) {
 		start := time.Now()                                                           // Before the response.
-		c.Next()                                                                      // Execute the next handler in the stack (in this case, the response).
+		c.Next()                                                                      // Execute the next handler in the stack (in this case, security headers setter).
 		log.Printf(" %s  %s  %s", c.Request.Method, c.Request.URL, time.Since(start)) // After the response.
+	})
+
+	// Secure
+	core.Use(func(c *core.Context) {
+		c.ResponseWriter.Header().Set("X-Frame-Options", "SAMEORIGIN")
+		c.ResponseWriter.Header().Set("X-Content-Type-Options", "nosniff")
+		c.ResponseWriter.Header().Set("X-XSS-Protection", "1; mode=block")
+
+		c.Next() // Execute the next handler in the stack (in this case, the response writer).
 	})
 
 	// Response
@@ -22,6 +31,16 @@ Example of a logger followed by the response writing:
 
 	// Run server
 	core.Run()
+
+A clearer visualization of this serving flow:
+
+	request open
+	  |- log start
+	  |--- secure start
+	  |----- response write
+	  |--- secure start
+	  |- log end
+	request close
 
 When using Run, your app is reachable at http://localhost:8080 by default.
 
@@ -34,18 +53,6 @@ If you need more flexibility, you can make a new handlers stack, which is fully 
 	})
 
 	http.ListenAndServe(":8080", hs)
-
-Here is the visualization of the serving flow when using log, secure and compress handlers:
-
-	request open
-	  |- log start
-	  |--- secure start
-	  |----- compress start
-	  |------- response write
-	  |----- compress end
-	  |--- secure end
-	  |- log end
-	request close
 
 Flags
 
