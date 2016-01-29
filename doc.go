@@ -4,15 +4,15 @@ Package core provides a pure handlers (or middlewares) stack so you can perform 
 The handlers stack
 
 A handler is a function that receives a context.
-It can be registered with Use and has the possibility to break the sream or to continue with the next handler in the stack.
+It can be registered with Use and has the possibility to break the stream or to continue with the next handler in the stack.
 
 Example of a logger followed by the response writing:
 
 	// Log
 	core.Use(func(c *core.Context) {
-		start := time.Now()
-		c.Next()
-		log.Printf(" %s  %s  %s", c.Request.Method, c.Request.URL, time.Since(start))
+		start := time.Now()                                                           // Before the response.
+		c.Next()                                                                      // Execute next handler in the stack.
+		log.Printf(" %s  %s  %s", c.Request.Method, c.Request.URL, time.Since(start)) // After the response.
 	})
 
 	// Response
