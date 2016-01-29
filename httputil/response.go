@@ -1,3 +1,4 @@
+// Package httputil provides HTTP utility functions, complementing the most common ones in the net/http package.
 package httputil
 
 import (
