@@ -11,7 +11,7 @@ Example of a logger followed by the response writing:
 	// Log
 	core.Use(func(c *core.Context) {
 		start := time.Now()                                                           // Before the response.
-		c.Next()                                                                      // Execute next handler in the stack.
+		c.Next()                                                                      // Execute the next handler in the stack (in this case, the response).
 		log.Printf(" %s  %s  %s", c.Request.Method, c.Request.URL, time.Since(start)) // After the response.
 	})
 
