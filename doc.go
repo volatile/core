@@ -35,6 +35,18 @@ If you need more flexibility, you can make a new handlers stack, which is fully 
 
 	http.ListenAndServe(":8080", hs)
 
+Here is the visualization of the serving flow when using log, secure and compress handlers:
+
+	request             init
+	  ⊢— log            start
+	  ⊢——— secure       start
+	  ⊢————— compress   start
+	  ⊢——————— response writing
+	  ⊢————— compress   end
+	  ⊢——— secure       end
+	  ⊢— log            end
+	request             closing
+
 Flags
 
 These flags are preset:
