@@ -62,7 +62,7 @@ If you need more flexibility, you can make a new handlers stack, which is fully 
 
 Flags
 
-These flags are preset:
+These flags are predefined:
 
 	-address
 		The address to listen and serving on.
