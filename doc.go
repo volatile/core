@@ -44,7 +44,7 @@ A clearer visualization of this serving flow:
 	  |— log start
 	  |——— secure start
 	  |————— response write
-	  |——— secure start
+	  |——— secure end
 	  |— log end
 	request close
 
