@@ -41,11 +41,11 @@ Example of a logger, followed by a security headers setter, followed by a respon
 A clearer visualization of this serving flow:
 
 	request open
-	  |- log start
-	  |--- secure start
-	  |----- response write
-	  |--- secure start
-	  |- log end
+	  |— log start
+	  |——— secure start
+	  |————— response write
+	  |——— secure start
+	  |— log end
 	request close
 
 When using Run, your app is reachable at http://localhost:8080 by default.
