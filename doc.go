@@ -3,8 +3,8 @@ Package core provides a pure handlers (or middlewares) stack so you can perform 
 
 The handlers stack
 
-A handler is a function that receives a context.
-It can be registered with Use and has the possibility to break the stream or to continue with the next handler in the stack.
+A handler is a function that receives a Context (which contains the response writer and the request).
+It can be registered with Use and has the possibility to break the stream or to continue with the next handler of the stack.
 
 Example of a logger, followed by a security headers setter, followed by a response writer:
 
