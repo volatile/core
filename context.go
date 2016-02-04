@@ -45,6 +45,8 @@ func (c *Context) Recover() {
 		log.Printf("%v\n%s", err, stack)
 
 		if !c.Written() {
+			c.ResponseWriter.Header().Del("Content-Type")
+
 			if c.handlersStack.PanicHandler != nil {
 				c.Data["panic"] = err
 				c.handlersStack.PanicHandler(c)
