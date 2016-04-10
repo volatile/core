@@ -38,12 +38,15 @@ func ResponseStatus(w http.ResponseWriter) int {
 
 // httpResponseStruct returns the response structure after going trough all the intermediary response writers.
 func httpResponseStruct(v reflect.Value) reflect.Value {
-	switch v.Type().String() {
-	case "*http.response":
-		return v.Elem()
-	default:
-		return httpResponseStruct(v.FieldByName("ResponseWriter").Elem())
+	if v.Kind() == reflect.Ptr {
+		v = v.Elem()
 	}
+
+	if v.Type().String() == "http.response" {
+		return v
+	}
+
+	return httpResponseStruct(v.FieldByName("ResponseWriter").Elem())
 }
 
 // SetDetectedContentType detects, sets and returns the response Conten-Type header value.
